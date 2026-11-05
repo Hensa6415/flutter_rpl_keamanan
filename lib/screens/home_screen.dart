@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/secure_storage_service.dart';
 import 'user_list_screen.dart';
+import 'post_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -209,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                       const SizedBox(height: 16),
+                      // Tombol 1: Daftar Pengguna
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton.icon(
@@ -224,6 +226,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           label: const Text('Lihat Daftar Pengguna'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16), // Jarak antar tombol
+                      // Tombol 2: Daftar Post (Tambahan Baru)
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const PostListScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.article),
+                          label: const Text('Lihat Daftar Post'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal,
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                           ),
