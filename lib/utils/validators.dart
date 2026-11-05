@@ -53,4 +53,22 @@ class Validators {
     }
     return null;
   }
+
+  /// Validasi nomor telepon (hanya angka, 10-13 digit)
+  static bool validatePhone(String phone) {
+    final regex = RegExp(r'^\d{10,13}$');
+    return regex.hasMatch(phone.trim());
+  }
+
+  /// Validasi URL (harus dimulai dengan http:// atau https://)
+  static bool validateUrl(String url) {
+    final regex = RegExp(r'^(http:\/\/|https:\/\/)');
+    return regex.hasMatch(url.trim());
+  }
+
+  /// Validasi password (min 8 karakter, ada huruf kapital, angka, & simbol)
+  static bool validatePassword(String password) {
+    final regex = RegExp(r'^(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$');
+    return regex.hasMatch(password);
+  }
 }

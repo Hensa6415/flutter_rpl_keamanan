@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../config/app_config.dart';
 import '../models/user.dart';
+import '../models/post.dart';
 
 class ApiService {
   final http.Client _client;
@@ -71,6 +72,30 @@ class ApiService {
     }
   }
 
+/// Mengambil daftar posts dari API.
+  Future<List<Post>> getPosts() async {
+    try {
+      _logRequest('GET', '/posts');
+      final response = await _client
+          .get(
+            Uri.parse('$_baseUrl/posts'),
+            headers: _buildHeaders(),
+          )
+          .timeout(const Duration(seconds: AppConfig.timeoutSeconds));
+          
+      _logResponse(response.statusCode);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        return data.map((json) => Post.fromJson(json)).toList();
+      } else {
+        throw Exception('Gagal memuat data Post. Status: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Terjadi kesalahan: $e');
+    }
+  }
+  
   Map<String, String> _buildHeaders() {
     return {
       'Content-Type': 'application/json',
